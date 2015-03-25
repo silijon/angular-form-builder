@@ -156,10 +156,11 @@
         @param value: The input value.
          */
         var input;
+        console.log($scope.$component);
         input = {
           id: $scope.formObject.id,
           label: $scope.formObject.label,
-          value: value != null ? value : ''
+          value: value != null ? value : ($scope.$component.arrayToText ? [] : '')
         };
         return $scope.$parent.input.splice($scope.$index, 1, input);
       };
@@ -503,7 +504,7 @@
                   checked.push((_ref = scope.options[index]) != null ? _ref : scope.inputArray[index]);
                 }
               }
-              return scope.inputText = checked.join(', ');
+              return scope.inputText = checked;
             }, true);
           }
           scope.$watch('inputText', function() {
