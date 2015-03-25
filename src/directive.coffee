@@ -358,7 +358,7 @@ angular.module 'builder.directive', [
                 return if newValue is oldValue
                 checked = []
                 for index of scope.inputArray when scope.inputArray[index]
-                    checked.push scope.options[index] ? scope.inputArray[index]
+                    checked.push scope.options[index].value ? scope.inputArray[index].value
                 #scope.inputText = checked.join ', '
                 scope.inputText = checked
             , yes
@@ -380,8 +380,8 @@ angular.module 'builder.directive', [
             $(element).html view
 
         # select the first option
-        if not scope.$component.arrayToText and scope.formObject.options.length > 0
-            scope.inputText = scope.formObject.options[0]
+        #if not scope.$component.arrayToText and scope.formObject.options.length > 0
+            #scope.inputText = scope.formObject.options[0]
 
         # set default value
         scope.$watch "default['#{scope.formObject.id}']", (value) ->

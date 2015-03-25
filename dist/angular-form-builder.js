@@ -30,7 +30,6 @@
          */
         var component;
         copyObjectToScope(formObject, $scope);
-        $scope.optionsText = formObject.options.join('\n');
         $scope.$watch('[label, description, placeholder, required, options, validation]', function() {
           formObject.label = $scope.label;
           formObject.description = $scope.description;
@@ -39,22 +38,6 @@
           formObject.options = $scope.options;
           return formObject.validation = $scope.validation;
         }, true);
-        $scope.$watch('optionsText', function(text) {
-          var x;
-          $scope.options = (function() {
-            var _i, _len, _ref, _results;
-            _ref = text.split('\n');
-            _results = [];
-            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-              x = _ref[_i];
-              if (x.length > 0) {
-                _results.push(x);
-              }
-            }
-            return _results;
-          })();
-          return $scope.inputText = $scope.options[0];
-        });
         component = $builder.components[formObject.component];
         return $scope.validationOptions = component.validationOptions;
       };
@@ -70,7 +53,7 @@
             description: $scope.description,
             placeholder: $scope.placeholder,
             required: $scope.required,
-            optionsText: $scope.optionsText,
+            options: angular.copy($scope.options),
             validation: $scope.validation
           };
         },
@@ -86,7 +69,7 @@
           $scope.description = this.model.description;
           $scope.placeholder = this.model.placeholder;
           $scope.required = this.model.required;
-          $scope.optionsText = this.model.optionsText;
+          $scope.options = this.model.options;
           return $scope.validation = this.model.validation;
         }
       };
@@ -156,7 +139,6 @@
         @param value: The input value.
          */
         var input;
-        console.log($scope.$component);
         input = {
           id: $scope.formObject.id,
           label: $scope.formObject.label,
@@ -501,7 +483,7 @@
               checked = [];
               for (index in scope.inputArray) {
                 if (scope.inputArray[index]) {
-                  checked.push((_ref = scope.options[index]) != null ? _ref : scope.inputArray[index]);
+                  checked.push((_ref = scope.options[index].value) != null ? _ref : scope.inputArray[index].value);
                 }
               }
               return scope.inputText = checked;
@@ -526,9 +508,6 @@
             view = $compile($template)(scope);
             return $(element).html(view);
           });
-          if (!scope.$component.arrayToText && scope.formObject.options.length > 0) {
-            scope.inputText = scope.formObject.options[0];
-          }
           return scope.$watch("default['" + scope.formObject.id + "']", function(value) {
             if (!value) {
               return;
@@ -1037,7 +1016,7 @@
         label: (_ref2 = formObject.label) != null ? _ref2 : component.label,
         description: (_ref3 = formObject.description) != null ? _ref3 : component.description,
         placeholder: (_ref4 = formObject.placeholder) != null ? _ref4 : component.placeholder,
-        options: (_ref5 = formObject.options) != null ? _ref5 : component.options,
+        options: (_ref5 = formObject.options) != null ? _ref5 : angular.copy(component.options),
         required: (_ref6 = formObject.required) != null ? _ref6 : component.required,
         validation: (_ref7 = formObject.validation) != null ? _ref7 : component.validation
       };

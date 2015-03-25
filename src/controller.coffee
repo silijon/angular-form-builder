@@ -32,7 +32,7 @@ angular.module 'builder.controller', ['builder.provider']
         ###
         copyObjectToScope formObject, $scope
 
-        $scope.optionsText = formObject.options.join '\n'
+        #$scope.optionsText = formObject.options.join '\n'
 
         $scope.$watch '[label, description, placeholder, required, options, validation]', ->
             formObject.label = $scope.label
@@ -43,9 +43,9 @@ angular.module 'builder.controller', ['builder.provider']
             formObject.validation = $scope.validation
         , yes
 
-        $scope.$watch 'optionsText', (text) ->
-            $scope.options = (x for x in text.split('\n') when x.length > 0)
-            $scope.inputText = $scope.options[0]
+        #$scope.$watch 'optionsText', (text) ->
+            #$scope.options = (x for x in text.split('\n') when x.length > 0)
+            #$scope.inputText = $scope.options[0]
 
         component = $builder.components[formObject.component]
         $scope.validationOptions = component.validationOptions
@@ -61,7 +61,7 @@ angular.module 'builder.controller', ['builder.provider']
                 description: $scope.description
                 placeholder: $scope.placeholder
                 required: $scope.required
-                optionsText: $scope.optionsText
+                options: angular.copy $scope.options
                 validation: $scope.validation
         rollback: ->
             ###
@@ -72,7 +72,7 @@ angular.module 'builder.controller', ['builder.provider']
             $scope.description = @model.description
             $scope.placeholder = @model.placeholder
             $scope.required = @model.required
-            $scope.optionsText = @model.optionsText
+            $scope.options = @model.options
             $scope.validation = @model.validation
 ]
 
@@ -143,7 +143,6 @@ angular.module 'builder.controller', ['builder.provider']
         Copy current scope.input[X] to $parent.input.
         @param value: The input value.
         ###
-        console.log $scope.$component
         input =
             id: $scope.formObject.id
             label: $scope.formObject.label

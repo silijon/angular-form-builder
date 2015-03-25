@@ -118,7 +118,10 @@ angular.module 'builder.components', ['builder', 'validator.rules']
         description: 'description'
         placeholder: 'placeholder'
         required: no
-        options: ['value one', 'value two']
+        options: [ 
+            { value:'v1', label:'value one' }, 
+            { value:'v2', label:'value two' } 
+        ]
         arrayToText: yes
         template:
             """
@@ -126,9 +129,10 @@ angular.module 'builder.components', ['builder', 'validator.rules']
                 <label for="{{formName+index}}" class="col-sm-4 control-label" ng-class="{'fb-required':required}">{{label}}</label>
                 <div class="col-sm-8">
                     <input type='hidden' ng-model="inputText" validator-required="{{required}}" validator-group="{{formName}}"/>
-                    <div class='checkbox' ng-repeat="item in options track by $index">
-                        <label><input type='checkbox' ng-model="$parent.inputArray[$index]" value='item'/>
-                            {{item}}
+                    <div class='checkbox' ng-repeat="opt in options track by $index">
+                        <!--<label><input type='checkbox' ng-model="$parent.inputArray[$index]" value='{{ opt.value }}'/>-->
+                        <label><input type='checkbox' ng-model="$parent.inputArray[$index]" />
+                            {{opt.label}}
                         </label>
                     </div>
                     <p class='help-block'>{{description}}</p>
@@ -147,8 +151,12 @@ angular.module 'builder.components', ['builder', 'validator.rules']
                     <input type='text' ng-model="description" class='form-control'/>
                 </div>
                 <div class="form-group">
-                    <label class='control-label'>Options</label>
-                    <textarea class="form-control" rows="3" ng-model="optionsText"/>
+                    <ol ng-model="options">
+                        <li ng-repeat="opt in options">
+                            <input ng-model="opt.value" type="text" class='form-control'/>
+                            <input ng-model="opt.label" type="text" class='form-control'/>
+                        </li>
+                    </ol>
                 </div>
                 <div class="checkbox">
                     <label>
@@ -224,14 +232,17 @@ angular.module 'builder.components', ['builder', 'validator.rules']
         description: 'description'
         placeholder: 'placeholder'
         required: no
-        options: ['value one', 'value two']
+        options: [ 
+            { value:'v1', label:'value one' }, 
+            { value:'v2', label:'value two' } 
+        ]
         template:
             """
             <div class="form-group">
                 <label for="{{formName+index}}" class="col-sm-4 control-label">{{label}}</label>
                 <div class="col-sm-8">
-                    <select ng-options="value for value in options" id="{{formName+index}}" class="form-control"
-                        ng-model="inputText" ng-init="inputText = options[0]"/>
+                    <select ng-options="opt.value as opt.label for opt in options" id="{{formName+index}}" class="form-control"
+                        ng-model="inputText" />
                     <p class='help-block'>{{description}}</p>
                 </div>
             </div>
@@ -247,9 +258,14 @@ angular.module 'builder.components', ['builder', 'validator.rules']
                     <label class='control-label'>Description</label>
                     <input type='text' ng-model="description" class='form-control'/>
                 </div>
+
                 <div class="form-group">
-                    <label class='control-label'>Options</label>
-                    <textarea class="form-control" rows="3" ng-model="optionsText"/>
+                    <ol ng-model="options">
+                        <li ng-repeat="opt in options">
+                            <input ng-model="opt.value" type="text" class='form-control'/>
+                            <input ng-model="opt.label" type="text" class='form-control'/>
+                        </li>
+                    </ol>
                 </div>
 
                 <hr/>

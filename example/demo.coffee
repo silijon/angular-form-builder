@@ -87,7 +87,10 @@ angular.module 'app', ['builder', 'builder.components', 'validator.rules']
         component: 'checkbox'
         label: 'Pets'
         description: 'Do you have any pets?'
-        options: ['Dog', 'Cat']
+        options: [
+            { value:'d', label:'Dog' },
+            { value:'c', label:'Cat' },
+        ]
     $builder.addFormObject 'default',
         component: 'sampleInput'
     # formObjects

@@ -71,7 +71,7 @@ angular.module 'builder.provider', []
             label: formObject.label ? component.label
             description: formObject.description ? component.description
             placeholder: formObject.placeholder ? component.placeholder
-            options: formObject.options ? component.options
+            options: formObject.options ? angular.copy component.options # copy the ref type
             required: formObject.required ? component.required
             validation: formObject.validation ? component.validation
         result
