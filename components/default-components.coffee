@@ -150,14 +150,24 @@ angular.module 'builder.components', ['builder', 'validator.rules']
                     <label class='control-label'>Description</label>
                     <input type='text' ng-model="description" class='form-control'/>
                 </div>
+
                 <div class="form-group">
                     <ol ng-model="options">
-                        <li ng-repeat="opt in options">
+                        <li ng-repeat="opt in options track by $index">
+                            <label>Data Value</label>
                             <input ng-model="opt.value" type="text" class='form-control'/>
+                            <label>Data Label</label>
                             <input ng-model="opt.label" type="text" class='form-control'/>
+                            <input type='button' class='btn btn-default' value='Remove' ng-click="options.splice($index, 1)"/>
                         </li>
+                        <label>Data Value</label>
+                        <input ng-model="newVal" placeholder="New Option Value" class="form-control"></input>
+                        <label>Data Label</label>
+                        <input ng-model="newLab" placeholder="New Option Label" class="form-control"></input>
+                        <input type='button' class='btn btn-default' value='Add' ng-click="options.push({label: newLab, value: newVal}); newVal=null; newLab=null;" />
                     </ol>
                 </div>
+                
                 <div class="checkbox">
                     <label>
                         <input type='checkbox' ng-model="required" />
@@ -183,15 +193,18 @@ angular.module 'builder.components', ['builder', 'validator.rules']
         description: 'description'
         placeholder: 'placeholder'
         required: no
-        options: ['value one', 'value two']
+        options: [ 
+            { value:'v1', label:'value one' }, 
+            { value:'v2', label:'value two' } 
+        ]
         template:
             """
             <div class="form-group">
                 <label for="{{formName+index}}" class="col-sm-4 control-label" ng-class="{'fb-required':required}">{{label}}</label>
                 <div class="col-sm-8">
                     <div class='radio' ng-repeat="item in options track by $index">
-                        <label><input name='{{formName+index}}' ng-model="$parent.inputText" validator-group="{{formName}}" value='{{item}}' type='radio'/>
-                            {{item}}
+                        <label><input name='{{formName+index}}' ng-model="$parent.inputText" validator-group="{{formName}}" value='{{item.value}}' type='radio'/>
+                            {{item.label}}
                         </label>
                     </div>
                     <p class='help-block'>{{description}}</p>
@@ -209,9 +222,22 @@ angular.module 'builder.components', ['builder', 'validator.rules']
                     <label class='control-label'>Description</label>
                     <input type='text' ng-model="description" class='form-control'/>
                 </div>
+
                 <div class="form-group">
-                    <label class='control-label'>Options</label>
-                    <textarea class="form-control" rows="3" ng-model="optionsText"/>
+                    <ol ng-model="options">
+                        <li ng-repeat="opt in options track by $index">
+                            <label>Data Value</label>
+                            <input ng-model="opt.value" type="text" class='form-control'/>
+                            <label>Data Label</label>
+                            <input ng-model="opt.label" type="text" class='form-control'/>
+                            <input type='button' class='btn btn-default' value='Remove' ng-click="options.splice($index, 1)"/>
+                        </li>
+                        <label>Data Value</label>
+                        <input ng-model="newVal" placeholder="New Option Value" class="form-control"></input>
+                        <label>Data Label</label>
+                        <input ng-model="newLab" placeholder="New Option Label" class="form-control"></input>
+                        <input type='button' class='btn btn-default' value='Add' ng-click="options.push({label: newLab, value: newVal}); newVal=null; newLab=null;" />
+                    </ol>
                 </div>
 
                 <hr/>
@@ -261,10 +287,18 @@ angular.module 'builder.components', ['builder', 'validator.rules']
 
                 <div class="form-group">
                     <ol ng-model="options">
-                        <li ng-repeat="opt in options">
+                        <li ng-repeat="opt in options track by $index">
+                            <label>Data Value</label>
                             <input ng-model="opt.value" type="text" class='form-control'/>
+                            <label>Data Label</label>
                             <input ng-model="opt.label" type="text" class='form-control'/>
+                            <input type='button' class='btn btn-default' value='Remove' ng-click="options.splice($index, 1)"/>
                         </li>
+                        <label>Data Value</label>
+                        <input ng-model="newVal" placeholder="New Option Value" class="form-control"></input>
+                        <label>Data Label</label>
+                        <input ng-model="newLab" placeholder="New Option Label" class="form-control"></input>
+                        <input type='button' class='btn btn-default' value='Add' ng-click="options.push({label: newLab, value: newVal}); newVal=null; newLab=null;" />
                     </ol>
                 </div>
 
