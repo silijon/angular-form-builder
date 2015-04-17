@@ -53,3 +53,40 @@
         width: 240px;
     }
 }
+
+.fb-seperator {
+    clear:both;
+    height:1px;
+    background-color:#555555;
+}
+
+.fb-li{
+    margin-left:20px;
+    font-size:16px;
+    color:#494641;
+}
+
+.fb-subinput{
+    height:26px;
+    margin-bottom:8px;
+}
+
+.fb-remove{
+    color: #93292e;
+}
+
+.fb-add{
+    color: #cca46a;
+    font-size: 16px;
+}
+
+div.popover-content{
+    overflow-y: auto;
+    max-height: 960px;
+}
+
+.fb-liner {
+    clear:both;
+    height:1px;
+    background-color:#cca46a;
+}
