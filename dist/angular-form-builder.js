@@ -162,7 +162,7 @@
         scope: {
           fbBuilder: '='
         },
-        template: "<div class='form-horizontal'>\n    <div class='fb-form-object-editable' ng-repeat=\"object in formObjects\"\n        fb-form-object-editable=\"object\"></div>\n</div>",
+        template: "<div class='form-horizontal'>\n    <div class='fb-form-label' ng-if='formObjects.length === 0'>Drag Items from Controls to create form.</div>\n    <div class='fb-form-object-editable' ng-repeat=\"object in formObjects\"\n        fb-form-object-editable=\"object\"></div>\n</div>",
         link: function(scope, element, attrs) {
           var beginMove, _base, _name;
           scope.formName = attrs.fbBuilder;
@@ -334,6 +334,19 @@
               /*
               The shown event of the popover.
                */
+              var $arrow, $popover, elementOrigin, popoverTop;
+              $popover = $("form." + popover.id).closest('.popover');
+              elementOrigin = $(element).offset().top + $(element).height() / 2;
+              popoverTop = elementOrigin - $popover.height() / 3;
+              popoverTop = Math.max(48, popoverTop);
+              $popover.css({
+                position: 'absolute',
+                top: popoverTop
+              });
+              $arrow = $popover.children('.arrow');
+              $arrow.css({
+                top: $popover.height() / 3
+              });
               scope.data.backup();
               return popover.isClickedSave = false;
             },
@@ -350,19 +363,16 @@
             }
           };
           $(element).on('show.bs.popover', function() {
-            var $popover, elementOrigin, popoverTop;
+            var $popover;
             if ($drag.isMouseMoved()) {
               return false;
             }
             $("div.fb-form-object-editable:not(." + popover.id + ")").popover('hide');
+            $(element).css({
+              border: '1px dashed #cca369'
+            });
             $popover = $("form." + popover.id).closest('.popover');
             if ($popover.length > 0) {
-              elementOrigin = $(element).offset().top + $(element).height() / 2;
-              popoverTop = elementOrigin - $popover.height() / 2;
-              $popover.css({
-                position: 'absolute',
-                top: popoverTop
-              });
               $popover.show();
               setTimeout(function() {
                 $popover.addClass('in');
@@ -380,6 +390,9 @@
           return $(element).on('hide.bs.popover', function() {
             var $popover;
             $popover = $("form." + popover.id).closest('.popover');
+            $(element).css({
+              border: '1px solid #fff'
+            });
             if (!popover.isClickedSave) {
               if (scope.$$phase || scope.$root.$$phase) {
                 scope.popover.cancel();
