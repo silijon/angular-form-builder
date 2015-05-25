@@ -11,7 +11,21 @@
     textarea { cursor: move; }
 }
 .fb-form-object-editable {
-    padding: 10px;
+    padding: 15px;
+    border: 1px solid #fff;
+    margin-right:10px;
+    border-radius:12px;
+}
+.fb-flow-container {
+    max-height:350px;
+    overflow-y:auto;
+    border-bottom: 1px solid #eee;
+}
+.fb-form-label{
+    margin-left:16px;
+    margin-top:16px;
+    font-size:16px;
+    color:#bebebe;
 }
 .fb-form-object-editable.fb-draggable {
     cursor: move;
@@ -25,14 +39,16 @@
     margin: 6px;
     height: 80px;
     border:dashed 1px #aaa;
-    background-color: #eee;
+    background-color: #f7f7f7;
 }
 
 .fb-draggable.dragging {
     background-color: #ffffff;
     position: absolute;
+    border-radius:12px;
+    padding-top:10px !important;
     z-index: 800;
-    @include box-shadow(#666 0 0 20px);
+    @include box-shadow(#d2cac7 0 0 5px);
 }
 
 .fb-required:after {
@@ -42,6 +58,7 @@
 
 .fb-builder {
     min-height: 250px;
+    padding-bottom: 15px;
 }
 
 
@@ -61,28 +78,38 @@
 }
 
 .fb-li{
-    margin-left:20px;
+    margin-left:25px;
     font-size:16px;
     color:#494641;
 }
 
 .fb-subinput{
-    height:26px;
-    margin-bottom:8px;
+    height: 22px;
+    margin-top: -2px;
+    margin-left: 15px;
+    width: 145px;
+    float: right;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-radius: 0px;
+    box-shadow: none;
+    padding: 0px;
 }
 
 .fb-remove{
     color: #93292e;
+    cursor:pointer;
 }
 
 .fb-add{
     color: #cca46a;
     font-size: 16px;
+    cursor:pointer;
 }
 
 div.popover-content{
-    overflow-y: auto;
-    max-height: 960px;
+    max-height: 650px;
 }
 
 .fb-liner {
