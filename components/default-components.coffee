@@ -53,9 +53,9 @@ angular.module 'builder.components', ['builder', 'validator.rules']
 
                 <hr/>
                 <div class='form-group'>
-                    <input type='submit' ng-click="popover.save($event)" class='btn btn-primary' value='Save'/>
-                    <input type='button' ng-click="popover.cancel($event)" class='btn btn-default' value='Cancel'/>
-                    <input type='button' ng-click="popover.remove($event)" class='btn btn-danger' value='Delete'/>
+                    <input type='submit' title='save'   ng-click="popover.save($event)" class='btn btn-primary' value='Save'/>
+                    <input type='button' title='cancel' ng-click="popover.cancel($event)" class='btn btn-default' value='Cancel'/>
+                    <input type='button' title='delete' ng-click="popover.remove($event)" class='btn btn-danger' value='Delete'/>
                 </div>
             </form>
             """
@@ -102,9 +102,9 @@ angular.module 'builder.components', ['builder', 'validator.rules']
 
                 <hr/>
                 <div class='form-group'>
-                    <input type='submit' ng-click="popover.save($event)" class='btn btn-primary' value='Save'/>
-                    <input type='button' ng-click="popover.cancel($event)" class='btn btn-default' value='Cancel'/>
-                    <input type='button' ng-click="popover.remove($event)" class='btn btn-danger' value='Delete'/>
+                    <input type='submit' title='save'   ng-click="popover.save($event)" class='btn btn-primary' value='Save'/>
+                    <input type='button' title='cancel' ng-click="popover.cancel($event)" class='btn btn-default' value='Cancel'/>
+                    <input type='button' title='delete' ng-click="popover.remove($event)" class='btn btn-danger' value='Delete'/>
                 </div>
             </form>
             """
@@ -146,42 +146,46 @@ angular.module 'builder.components', ['builder', 'validator.rules']
                     <label class='control-label'>Label</label>
                     <input type='text' ng-model="label" validator="[required]" class='form-control'/>
                 </div>
+                <hr>
                 <div class="form-group">
                     <label class='control-label'>Description</label>
                     <input type='text' ng-model="description" class='form-control'/>
                 </div>
                 <hr>
-                <div class="form-group">
-                    <ol ng-model="options">
-                        <li class="fb-li" ng-repeat="opt in options track by $index">
-                            <label class='control-label' title="displayed in data collection">Option Label</label>
-                            <input ng-model="opt.label" type="text" class='form-control fb-subinput'/>
-                            <label class='control-label' title="displayed in output excel file">Output Value</label>
-                            <input ng-model="opt.value" type="text" class='form-control fb-subinput'/>
-                            <i class="fa-times fa fb-remove" title="Remove" ng-click="options.splice($index, 1)"></i><label class="control-label fb-remove">&nbsp;Remove</label>
-                            <hr>
-                        </li>
-                        <div class="fb-li">
-                            <label class='control-label'>Option Label</label>
-                            <input ng-model="newLab" placeholder="New Option Label" class="form-control fb-subinput"></input>
-                            <label class='control-label'>Output Value</label>
-                            <input ng-model="newVal" placeholder="New Option Value" class="form-control fb-subinput"></input>
-                            <i class="fa-plus fa fb-add" title="Add" ng-click="options.push({label: newLab, value: newVal}); newVal=null; newLab=null;"></i><label class="control-label fb-add">&nbsp;Add</label>
-                        </div>
-                        <hr>
-                    </ol>
-                </div>
                 <div class="checkbox">
                     <label>
                         <input type='checkbox' ng-model="required" />
                         Required
                     </label>
                 </div>
-                <hr/>
+                <hr>
+                <div class="form-group">
+                    <label class='control-label'>Options</label>
+                    <ol class='fb-flow-container' ng-model="options">
+                        <li class="fb-li" ng-repeat="opt in options track by $index">
+                            <label class='control-label' title="displayed in data collection">Label:</label>
+                            <input ng-model="opt.label" type="text" class='form-control fb-subinput'/>
+                            <label class='control-label' title="displayed in output excel file">Output:</label>
+                            <span class='clear:both'></span>
+                            <input ng-model="opt.value" type="text" class='form-control fb-subinput'/>
+                            <i class="fa-times fa fb-remove" title="Remove" ng-click="options.splice($index, 1)"></i>
+                            <label ng-click="options.splice($index, 1)" class="control-label fb-remove">&nbsp;remove</label>
+                            <hr>
+                        </li>
+                        <li class="fb-li">
+                            <label class='control-label'>Label:</label>
+                            <input ng-model="newLab" placeholder="New Label" class="form-control fb-subinput"></input>
+                            <label class='control-label'>Output:</label>
+                            <input ng-model="newVal" placeholder="New Value" class="form-control fb-subinput"></input>
+                            <i class="fa-plus fa fb-add" title="Add" ng-click="options.push({label: newLab, value: newVal}); newVal=null; newLab=null;"></i>
+                            <label ng-click="options.push({label: newLab, value: newVal}); newVal=null; newLab=null;" class="control-label fb-add">&nbsp;add</label>
+                        </li>
+                    </ol>
+                </div>
                 <div class='form-group'>
-                    <input type='submit' ng-click="popover.save($event)" class='btn btn-primary' value='Save'/>
-                    <input type='button' ng-click="popover.cancel($event)" class='btn btn-default' value='Cancel'/>
-                    <input type='button' ng-click="popover.remove($event)" class='btn btn-danger' value='Delete'/>
+                    <input type='submit' title='save'   ng-click="popover.save($event)" class='btn btn-primary' value='Save'/>
+                    <input type='button' title='cancel' ng-click="popover.cancel($event)" class='btn btn-default' value='Cancel'/>
+                    <input type='button' title='delete' ng-click="popover.remove($event)" class='btn btn-danger' value='Delete'/>
                 </div>
             </form>
             """
@@ -220,31 +224,12 @@ angular.module 'builder.components', ['builder', 'validator.rules']
                     <label class='control-label'>Label</label>
                     <input type='text' ng-model="label" validator="[required]" class='form-control'/>
                 </div>
+                <hr>
                 <div class="form-group">
                     <label class='control-label'>Description</label>
                     <input type='text' ng-model="description" class='form-control'/>
                 </div>
-                <hr>
-                <div class="form-group">
-                    <ol ng-model="options">
-                        <li class="fb-li" ng-repeat="opt in options track by $index">
-                            <label class='control-label' title="displayed in data collection">Option Label</label>
-                            <input ng-model="opt.label" type="text" class='form-control fb-subinput'/>
-                            <label class='control-label' title="displayed in output excel file">Output Value</label>
-                            <input ng-model="opt.value" type="text" class='form-control fb-subinput'/>
-                            <i class="fa-times fa fb-remove" title="Remove" ng-click="options.splice($index, 1)"></i><label class="control-label fb-remove">&nbsp;Remove</label>
-                            <hr>
-                        </li>
-                        <div class="fb-li">
-                            <label class='control-label'>Option Label</label>
-                            <input ng-model="newLab" placeholder="New Option Label" class="form-control fb-subinput"></input>
-                            <label class='control-label'>Output Value</label>
-                            <input ng-model="newVal" placeholder="New Option Value" class="form-control fb-subinput"></input>
-                            <i class="fa-plus fa fb-add" title="Add" ng-click="options.push({label: newLab, value: newVal}); newVal=null; newLab=null;"></i><label class="control-label fb-add">&nbsp;Add</label>
-                        </div>
-                        <hr>
-                    </ol>
-                </div>
+                <hr>                
                 <div class="checkbox">
                     <label>
                         <input type='checkbox' ng-model="required" />
@@ -252,10 +237,33 @@ angular.module 'builder.components', ['builder', 'validator.rules']
                     </label>
                 </div>
                 <hr/>
+                <div class="form-group">
+                    <label class='control-label'>Options</label>
+                    <ol class='fb-flow-container' ng-model="options">
+                        <li class="fb-li" ng-repeat="opt in options track by $index">
+                            <label class='control-label' title="displayed in data collection">Label:</label>
+                            <input ng-model="opt.label" type="text" class='form-control fb-subinput'/>
+                            <label class='control-label' title="displayed in output excel file">Value:</label>
+                            <input ng-model="opt.value" type="text" class='form-control fb-subinput'/>
+                            <span class='clear:both'></span>
+                            <i class="fa-times fa fb-remove" title="Remove" ng-click="options.splice($index, 1)"></i>
+                            <label ng-click="options.splice($index, 1)" class="control-label fb-remove">&nbsp;remove</label>
+                            <hr>
+                        </li>
+                        <li class="fb-li">
+                            <label class='control-label'>Label:</label>
+                            <input ng-model="newLab" placeholder="Option Label" class="form-control fb-subinput"></input>
+                            <label class='control-label'>Value:</label>
+                            <input ng-model="newVal" placeholder="Option Value" class="form-control fb-subinput"></input>
+                            <i class="fa-plus fa fb-add" title="Add" ng-click="options.push({label: newLab, value: newVal}); newVal=null; newLab=null;"></i>
+                            <label ng-click="options.push({label: newLab, value: newVal}); newVal=null; newLab=null;" class="control-label fb-add">&nbsp;add</label>
+                        </li>
+                    </ol>
+                </div>
                 <div class='form-group'>
-                    <input type='submit' ng-click="popover.save($event)" class='btn btn-primary' value='Save'/>
-                    <input type='button' ng-click="popover.cancel($event)" class='btn btn-default' value='Cancel'/>
-                    <input type='button' ng-click="popover.remove($event)" class='btn btn-danger' value='Delete'/>
+                    <input type='submit' title='save'   ng-click="popover.save($event)" class='btn btn-primary' value='Save'/>
+                    <input type='button' title='cancel' ng-click="popover.cancel($event)" class='btn btn-default' value='Cancel'/>
+                    <input type='button' title='delete' ng-click="popover.remove($event)" class='btn btn-danger' value='Delete'/>
                 </div>
             </form>
             """
@@ -291,31 +299,12 @@ angular.module 'builder.components', ['builder', 'validator.rules']
                     <label class='control-label'>Label</label>
                     <input type='text' ng-model="label" validator="[required]" class='form-control'/>
                 </div>
+                <hr>
                 <div class="form-group">
                     <label class='control-label'>Description</label>
                     <input type='text' ng-model="description" class='form-control'/>
                 </div>
                 <hr>
-                <div class="form-group">
-                    <ol ng-model="options">
-                        <li class="fb-li" ng-repeat="opt in options track by $index">
-                            <label class='control-label' title="displayed in data collection">Option Label</label>
-                            <input ng-model="opt.label" type="text" class='form-control fb-subinput'/>
-                            <label class='control-label' title="displayed in output excel file">Output Value</label>
-                            <input ng-model="opt.value" type="text" class='form-control fb-subinput'/>
-                            <i class="fa-times fa fb-remove" title="Remove" ng-click="options.splice($index, 1)"></i><label class="control-label fb-remove">&nbsp;Remove</label>
-                            <hr>
-                        </li>
-                        <div class="fb-li">
-                            <label class='control-label'>Option Label</label>
-                            <input ng-model="newLab" placeholder="New Option Label" class="form-control fb-subinput"></input>
-                            <label class='control-label'>Output Value</label>
-                            <input ng-model="newVal" placeholder="New Option Value" class="form-control fb-subinput"></input>
-                            <i class="fa-plus fa fb-add" title="Add" ng-click="options.push({label: newLab, value: newVal}); newVal=null; newLab=null;"></i><label class="control-label fb-add">&nbsp;Add</label>
-                        </div>
-                        <hr>
-                    </ol>
-                </div>
                 <div class="checkbox">
                     <label>
                         <input type='checkbox' ng-model="required" />
@@ -323,10 +312,33 @@ angular.module 'builder.components', ['builder', 'validator.rules']
                     </label>
                 </div>
                 <hr/>
+                <div class="form-group">
+                    <label class='control-label'>Options</label><hr>
+                    <ol class='fb-flow-container' ng-model="options">
+                        <li class="fb-li" ng-repeat="opt in options track by $index">
+                            <label class='control-label' title="displayed in data collection">Label:</label>
+                            <input ng-model="opt.label" type="text" class='form-control fb-subinput'/>
+                            <label class='control-label' title="displayed in output excel file">Value:</label>
+                            <input ng-model="opt.value" type="text" class='form-control fb-subinput'/>
+                            <span class='clear:both'></span>
+                            <i class="fa-times fa fb-remove" title="Remove" ng-click="options.splice($index, 1)"></i>
+                            <label ng-click="options.splice($index, 1)" class="control-label fb-remove">&nbsp;remove</label>
+                            <hr>
+                        </li>
+                        <li class="fb-li">
+                            <label class='control-label'>Label:</label>
+                            <input ng-model="newLab" placeholder="New Option Label" class="form-control fb-subinput"></input>
+                            <label class='control-label'>Value:</label>
+                            <input ng-model="newVal" placeholder="New Option Value" class="form-control fb-subinput"></input>
+                            <i class="fa-plus fa fb-add" title="Add" ng-click="options.push({label: newLab, value: newVal}); newVal=null; newLab=null;"></i>
+                            <label ng-click="options.push({label: newLab, value: newVal}); newVal=null; newLab=null;" class="control-label fb-add">&nbsp;add</label>
+                        </li>
+                    </ol>
+                </div>
                 <div class='form-group'>
-                    <input type='submit' ng-click="popover.save($event)" class='btn btn-primary' value='Save'/>
-                    <input type='button' ng-click="popover.cancel($event)" class='btn btn-default' value='Cancel'/>
-                    <input type='button' ng-click="popover.remove($event)" class='btn btn-danger' value='Delete'/>
+                    <input type='submit' title='save'   ng-click="popover.save($event)" class='btn btn-primary' value='Save'/>
+                    <input type='button' title='cancel' ng-click="popover.cancel($event)" class='btn btn-default' value='Cancel'/>
+                    <input type='button' title='delete' ng-click="popover.remove($event)" class='btn btn-danger' value='Delete'/>
                 </div>
             </form>
             """
