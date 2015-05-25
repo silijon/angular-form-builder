@@ -24,6 +24,7 @@ angular.module 'builder.directive', [
     template:
         """
         <div class='form-horizontal'>
+            <div class='fb-form-label' ng-if='formObjects.length === 0'>Drag Items from Controls to create form.</div>
             <div class='fb-form-object-editable' ng-repeat="object in formObjects"
                 fb-form-object-editable="object"></div>
         </div>
@@ -191,6 +192,18 @@ angular.module 'builder.directive', [
                 ###
                 The shown event of the popover.
                 ###
+                
+                $popover = $("form.#{popover.id}").closest '.popover'
+                # fixed offset
+                elementOrigin = $(element).offset().top + $(element).height() / 2
+                popoverTop = elementOrigin - $popover.height() / 3
+                popoverTop = Math.max(48,popoverTop);
+                $popover.css
+                    position: 'absolute'
+                    top: popoverTop
+                $arrow = $popover.children('.arrow')
+                $arrow.css
+                    top: $popover.height()/3
                 scope.data.backup()
                 popover.isClickedSave = no
             cancel: ($event) ->
@@ -210,16 +223,11 @@ angular.module 'builder.directive', [
             return no if $drag.isMouseMoved()
             # hide other popovers
             $("div.fb-form-object-editable:not(.#{popover.id})").popover 'hide'
-
+            $(element).css
+                border: '1px dashed #cca369'
             $popover = $("form.#{popover.id}").closest '.popover'
             if $popover.length > 0
                 # fixed offset
-                elementOrigin = $(element).offset().top + $(element).height() / 2
-                popoverTop = elementOrigin - $popover.height() / 2
-                $popover.css
-                    position: 'absolute'
-                    top: popoverTop
-
                 $popover.show()
                 setTimeout ->
                     $popover.addClass 'in'
@@ -240,6 +248,8 @@ angular.module 'builder.directive', [
         $(element).on 'hide.bs.popover', ->
             # do not remove the DOM
             $popover = $("form.#{popover.id}").closest '.popover'
+            $(element).css
+                border: '1px solid #fff'
             if not popover.isClickedSave
                 # eval the cancel event
                 if scope.$$phase or scope.$root.$$phase
