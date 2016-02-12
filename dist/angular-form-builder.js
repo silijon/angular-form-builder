@@ -547,6 +547,7 @@
       draggables: {},
       droppables: {}
     };
+    this.mousePosition = [];
     this.mouseMoved = false;
     this.isMouseMoved = (function(_this) {
       return function() {
@@ -573,6 +574,10 @@
         });
         $(document).on('mousemove', function(e) {
           var func, key, _ref;
+          if (e.pageX === _this.mousePosition[0] && e.pageY === _this.mousePosition[1]) {
+            return;
+          }
+          _this.mousePosition = [e.pageX, e.pageY];
           _this.mouseMoved = true;
           _ref = _this.hooks.move;
           for (key in _ref) {

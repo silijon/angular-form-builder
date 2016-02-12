@@ -21,6 +21,7 @@ angular.module 'builder.drag', []
     # ----------------------------------------
     # event hooks
     # ----------------------------------------
+    @mousePosition = []
     @mouseMoved = no
     @isMouseMoved = => @mouseMoved
     @hooks =
@@ -35,6 +36,11 @@ angular.module 'builder.drag', []
             func(e) for key, func of @hooks.down
             return
         $(document).on 'mousemove', (e) =>
+            # validate mouse actually moved since chrome is unreliable here
+            # https://code.google.com/p/chromium/issues/detail?id=161464
+            if e.pageX is @mousePosition[0] and e.pageY is @mousePosition[1]
+                return # mouse didn't actually move
+            @mousePosition = [e.pageX, e.pageY]
             @mouseMoved = yes
             func(e) for key, func of @hooks.move
             return
